@@ -1,0 +1,30 @@
+#!/bin/sh
+
+sleep 30 
+
+while :
+do
+    if [ "$(ls /s4)" ] ; then
+        for bucketPath in /s4/* ; do
+            (
+                if [ "$bucketPath" != "/s4/.minio.sys" ] && [ "$bucketPath" != "/s4/system" ] ; then
+                    
+                    replace="/s4/"
+                    bucket="${bucketPath/$replace/''}"    
+
+                    if (ipfs key list | grep $bucket >/dev/null) ; then
+                        echo "* Publishing Bucket: $bucket"
+                        ipfs add -r -Q $bucketPath | ipfs name publish -Q --key=$bucket >/dev/null
+                    else
+                        echo "* Creating Key for Bucket: $bucket"
+                        mkdir -p "/s4/system/$bucket"
+                        
+                        ipfs key gen --type=rsa --size=2048 $bucket > "/s4/system/$bucket/hash"                       
+                    fi            
+                fi
+            )
+        done
+    fi
+
+    sleep 10
+done

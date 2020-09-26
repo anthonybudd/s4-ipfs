@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo '   _____ __ __     ________  ___________'
+echo '  / ___// // /    /  _/ __ \/ ____/ ___/'
+echo '  \__ \/ // /_    / // /_/ / /_   \__ \ '
+echo ' ___/ /__  __/  _/ // ____/ __/  ___/ / '
+echo '/____/  /_/    /___/_/   /_/    /____/  '
+echo ''
+echo ''
+                                        
+
+/bin/sh -- /scripts/publish &
+
+/sbin/tini -- /usr/local/bin/start_ipfs daemon --migrate=true
