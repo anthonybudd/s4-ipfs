@@ -1,5 +1,5 @@
-# FROM ipfs/go-ipfs
-FROM yrzr/go-ipfs-arm64v8
+FROM ipfs/go-ipfs
+# FROM yrzr/go-ipfs-arm64v8
 
 ADD ./scripts /scripts
 

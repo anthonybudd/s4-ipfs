@@ -19,7 +19,12 @@ do
                         echo "* Creating Key for Bucket: $bucket"
                         mkdir -p "/s4/system/$bucket"
                         
-                        ipfs key gen --type=rsa --size=2048 $bucket > "/s4/system/$bucket/hash"                       
+                        ipfs key gen --type=rsa --size=2048 $bucket > "/s4/system/$bucket/hash"
+
+                        hash=$(cat "/s4/system/$bucket/hash")
+                        echo "HASH --->"
+                        echo $hash
+                        echo $hash > "/s4/system/$bucket/$hash"
                     fi            
                 fi
             )
